@@ -1,0 +1,108 @@
+﻿<div *ngIf="isLoading">
+    <div id="loader"></div>
+    <div id="backdrop"></div>
+</div>
+
+<div class="donation-form rounded-0 mb-10">
+    <base href="/">
+    <div class="p2">
+        <div class="clearfix"></div>
+        <div class="sign_in">
+            <div class="group text-center logo" *ngIf="organizationDetail.image">
+
+                <img [src]="organizationDetail.image" class="codeqr" alt="{{organizationDetail.organization}}"
+                    title="{{organizationDetail.organization}}" />
+
+            </div>
+
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="name" class="col-xs-5 col-sm-4">Organization</label>
+                    <span>{{organizationDetail.organization}}</span>
+                </div>
+
+                <div class="form-group" *ngIf="organizationDetail && organizationDetail.relief_fund">
+                    <label for="name" class="col-xs-5 col-sm-4">Relief Fund</label>
+                    <span>{{organizationDetail.relief_fund}}</span>
+                </div>
+            </div>
+
+
+            <hr>
+            <form name="form" #f="ngForm" novalidate>
+
+                <div class="group">
+                    <input type="number" [(ngModel)]="donationData.amount" #amount="ngModel" name="amount"
+                        pattern="^(\d*\.)?\d+$" required />
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Amount</label>
+                    <div *ngIf="submitted && amount.errors" class="text-danger">
+                        <div *ngIf="amount.errors.required">Amount is required</div>
+                        <div *ngIf="amount.errors.pattern">Amount is invalid</div>
+                    </div>
+                </div>
+                <div class="group">
+                    <select [(ngModel)]="donationData.payment_source.source_id" #payment="ngModel" name="payment">
+                        <option *ngFor="let ps of organizationDetail.payment_sources" [ngValue]="ps.source_id">{{ps.display_name}}
+                        </option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Pay with</label>
+                    <div *ngIf="submitted && payment.errors" class="text-danger">
+                        <div *ngIf="payment.errors.required">Payment source is required</div>
+                    </div>
+                </div>
+                <div class="group">
+                    <select [(ngModel)]="donationData.frequency" name="freq" #freq="ngModel" required>
+                        <option *ngFor="let f of organizationDetail.frequency_options" [value]="f">{{f}}</option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Frequency</label>
+                    <div *ngIf="submitted && freq.errors" class="text-danger">
+                        <div *ngIf="freq.errors.required">Frequency is required</div>
+                    </div>
+                </div>
+
+                <div class="group" *ngIf="donationData.frequency && donationData.frequency !== 'Once'">
+                    <input type="text" placeholder="Datepicker" bsDatepicker [(ngModel)]="donationData.start_date" #startDate="ngModel" name="startDate"
+                    required [bsConfig]="{ isAnimated: true }">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Start Date</label>
+                    <div *ngIf="submitted && startDate.errors" class="text-danger">
+                        <div *ngIf="startDate.errors.required">Start date is required</div>
+                    </div>
+                </div>
+
+                <div class="group" *ngIf="donationData.frequency && donationData.frequency !== 'Once'">
+                    <input type="text" placeholder="Datepicker" bsDatepicker [(ngModel)]="donationData.end_date" #endDate="ngModel" name="endDate"
+                    required [bsConfig]="{ isAnimated: true }" [minDate]="donationData.start_date">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>End Date</label>
+                    <div *ngIf="submitted && endDate.errors" class="text-danger">
+                        <div *ngIf="endDate.errors.required">End date is required</div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <button (click)="changeMyMind()"
+                            class="btn btn-default btn-block btn-lg rounded-0 shadow">Change my
+                            mind</button>
+                    </div>
+
+                    <div>
+                        <button (click)="makeDonation(f)"
+                            class="btn btn-primary btn-block btn-lg rounded-0 shadow">Donate</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>

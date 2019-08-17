@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+/*$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+$fa-font-path: '../node_modules/font-awesome/fonts';*/
+/*@import '~fonts/';*/
+
+@import "~css/bootstrap.min.css";
+@import "~css/landscape.min.css";
+@import "~css/flags.min.css";
+@import "~css/font-awesome.min.css";
+
+@import "~css/responsive.min.css";
+@import "~css/style.min.css";
+/*@import "~css/portrait.min.css";;*/
+/*@import "~css/inner.min.css";*/

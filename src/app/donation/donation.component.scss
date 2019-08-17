@@ -1,0 +1,38 @@
+.donation-form{
+    max-width: 550px;
+    font-size: 14px;
+    line-height: 1.8em;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .16);
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 10% auto;
+        background: #fff;
+
+    .group.logo{
+        min-height: 165px;
+        margin: 10px;
+        img {
+            width: 100%;
+        }
+    }
+}
+
+@media(max-width:767px) {
+    .donation-form{
+        margin: 0;
+        height: 100%;
+    }
+}
+
+@media(max-width:320px) {
+    .donation-form{
+        margin: 0;
+        height: 100%;
+    
+        .group.logo{
+            min-height: 65px;
+            margin: 25px 0;
+        }
+    }
+}
